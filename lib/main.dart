@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
             colors: [Color(0xff66ff66), Color(0xff00ffff)]),
       ),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text('Monetag Self Click',
             style: TextStyle(fontSize: 30, color: Colors.black,
