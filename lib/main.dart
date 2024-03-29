@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:notix_inapp_flutter/notix.dart';
 import 'package:url_launcher/url_launcher.dart';
