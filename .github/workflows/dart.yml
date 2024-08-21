@@ -12,7 +12,7 @@ name: "Build & Release"
 jobs:
   build:
     name: Build & Release
-    runs-on: macos-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -22,23 +22,15 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          architecture: x64
+          architecture: '3.24.0'
 
-      - run: flutter pub outdated
-
-      - run: flutter build apk --release --split-per-abi
-      - run: |
-          flutter build ios --no-codesign
-          cd build/ios/iphoneos
-          mkdir Payload
-          cd Payload
-          ln -s ../Runner.app
-          cd ..
-          zip -r app.ipa Payload
+      - run: flutter pub get
+      - run: flutter test
+      - run: flutter build apk
       - name: Push to Releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/apk/release/*,build/ios/iphoneos/app.ipa"
+          artifacts: "build/app/outputs/apk/release/*"
           tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.TOKEN }}
 
